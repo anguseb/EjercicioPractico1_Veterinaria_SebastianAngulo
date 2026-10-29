@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <body>
+
+        <!-- Fragmento: formulario de consultas (solo interfaz, no usa base de datos) -->
+        <section th:fragment="formulario">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card card-vet">
+                        <div class="card-header">
+                            <h4><span th:text="#{consulta.titulo}">Consultas</span></h4>
+                        </div>
+                        <div class="card-body">
+                            <p th:text="#{consulta.descripcion}">Descripción</p>
+                            <form th:action="@{/consultas/enviar}" method="post">
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label" th:text="#{consulta.nombre}">Nombre</label>
+                                    <input type="text" class="form-control" id="nombre" name="nombre" maxlength="100" required="required"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="correo" class="form-label" th:text="#{consulta.correo}">Correo</label>
+                                    <input type="email" class="form-control" id="correo" name="correo" maxlength="100" required="required"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nombreMascota" class="form-label" th:text="#{consulta.mascota}">Mascota</label>
+                                    <input type="text" class="form-control" id="nombreMascota" name="nombreMascota" maxlength="100" required="required"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="mensaje" class="form-label" th:text="#{consulta.mensaje}">Mensaje</label>
+                                    <textarea class="form-control" id="mensaje" name="mensaje" rows="5" maxlength="1000" required="required"></textarea>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-vet btn-lg">
+                                        <span th:text="#{accion.enviar}">Enviar consulta</span></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </body>
+</html>

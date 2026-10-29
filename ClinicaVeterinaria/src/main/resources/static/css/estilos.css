@@ -1,0 +1,125 @@
+/* Paleta de la clínica veterinaria */
+:root {
+    --vet-fondo: #F2F2F2;
+    --vet-oscuro: #733F2D;
+    --vet-medio: #A67153;
+    --vet-claro: #D99962;
+    --vet-acento: #D99F59;
+    --vet-texto: #3B2418;
+}
+
+body {
+    background-color: var(--vet-fondo);
+    color: var(--vet-texto);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--vet-oscuro);
+}
+
+/* Header */
+.vet-encabezado {
+    background-color: var(--vet-oscuro);
+    color: #FFFFFF;
+}
+
+.vet-encabezado h1 {
+    color: #FFFFFF;
+}
+
+/* Navbar */
+.vet-navbar {
+    background-color: var(--vet-medio);
+}
+
+.vet-navbar .nav-link {
+    color: #FFFFFF;
+    font-weight: 600;
+    padding: .6rem 1rem;
+}
+
+.vet-navbar .nav-link:hover,
+.vet-navbar .nav-link.active {
+    background-color: var(--vet-acento);
+    color: var(--vet-texto);
+}
+
+/* Footer */
+.vet-pie {
+    background-color: var(--vet-oscuro);
+    color: #FFFFFF;
+}
+
+/* Botones */
+.btn-vet {
+    background-color: var(--vet-medio);
+    border-color: var(--vet-medio);
+    color: #FFFFFF;
+}
+
+.btn-vet:hover, .btn-vet:focus {
+    background-color: var(--vet-oscuro);
+    border-color: var(--vet-oscuro);
+    color: #FFFFFF;
+}
+
+.btn-acento {
+    background-color: var(--vet-acento);
+    border-color: var(--vet-acento);
+    color: var(--vet-texto);
+}
+
+.btn-acento:hover, .btn-acento:focus {
+    background-color: var(--vet-claro);
+    border-color: var(--vet-claro);
+    color: var(--vet-texto);
+}
+
+/* Tarjetas, tablas y modales */
+.card-vet {
+    background-color: #FFFFFF;
+    border: 1px solid var(--vet-medio);
+}
+
+.card-vet > .card-header {
+    background-color: var(--vet-medio);
+    color: #FFFFFF;
+}
+
+.card-vet > .card-header h4,
+.card-vet > .card-header h5 {
+    color: #FFFFFF;
+    margin-bottom: 0;
+}
+
+.tabla-vet thead th {
+    background-color: var(--vet-oscuro);
+    color: #FFFFFF;
+}
+
+.modal-header.vet-modal {
+    background-color: var(--vet-medio);
+    color: #FFFFFF;
+}
+
+.badge-vet {
+    background-color: var(--vet-acento);
+    color: var(--vet-texto);
+}
+
+.vet-toast-exito {
+    background-color: var(--vet-medio);
+    color: #FFFFFF;
+}
+
+/* Página de inicio */
+.contenido-inicio {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.caja-campana {
+    background-color: #FFFFFF;
+    border-left: 6px solid var(--vet-acento);
+    padding: 1rem 1.25rem;
+}

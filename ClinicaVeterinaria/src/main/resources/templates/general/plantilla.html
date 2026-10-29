@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!-- Plantilla base: todas las páginas la reutilizan con th:replace -->
+<html xmlns:th="http://www.thymeleaf.org" lang="es"
+      th:fragment="estructura(titulo, contenido)">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title th:replace="${titulo}">Clínica Veterinaria</title>
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"/>
+        <link th:href="@{/css/estilos.css}" rel="stylesheet"/>
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+        <header th:replace="~{general/fragmentos :: encabezado}"></header>
+        <nav th:replace="~{general/fragmentos :: menu}"></nav>
+
+        <main th:replace="${contenido}"></main>
+
+        <section th:replace="~{general/fragmentos :: avisoResultado}"></section>
+        <footer th:replace="~{general/fragmentos :: pie}"></footer>
+
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
+        <script th:src="@{/js/clinica.js}"></script>
+    </body>
+</html>

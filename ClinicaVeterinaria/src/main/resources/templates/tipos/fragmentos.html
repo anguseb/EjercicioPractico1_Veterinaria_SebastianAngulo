@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <body>
+
+        <!-- Fragmento 1: botón y ventana modal para agregar un tipo -->
+        <section th:fragment="agregar">
+            <div class="mb-3">
+                <button type="button" class="btn btn-vet" data-bs-toggle="modal" data-bs-target="#modalAgregar">
+                    <span th:text="#{tipo.agregar}">Agregar</span></button>
+            </div>
+
+            <div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="tituloAgregar" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header vet-modal">
+                            <h5 class="modal-title" id="tituloAgregar">
+                                <span th:text="#{tipo.agregar}">Agregar</span></h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                    th:aria-label="#{accion.cerrar}"></button>
+                        </div>
+                        <form th:action="@{/tipos/registrar}" th:object="${tipoServicio}" method="post">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label" th:text="#{tipo.nombre}">Nombre</label>
+                                    <input type="text" class="form-control" th:field="*{nombre}" maxlength="100" required="required"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="descripcion" class="form-label" th:text="#{tipo.descripcion}">Descripción</label>
+                                    <input type="text" class="form-control" th:field="*{descripcion}" maxlength="255"/>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    <span th:text="#{accion.cancelar}">Cancelar</span></button>
+                                <button type="submit" class="btn btn-vet">
+                                    <span th:text="#{accion.guardar}">Guardar</span></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fragmento 2: tabla con los tipos y la cantidad de servicios de cada uno -->
+        <section th:fragment="tabla">
+            <div class="card card-vet">
+                <div class="card-header"><h4 th:text="#{tipo.listado}">Listado</h4></div>
+                <div class="card-body">
+                    <div class="table-responsive" th:if="${tipos != null and !tipos.isEmpty()}">
+                        <table class="table table-striped table-hover align-middle tabla-vet">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th th:text="#{tipo.nombre}">Nombre</th>
+                                    <th th:text="#{tipo.descripcion}">Descripción</th>
+                                    <th th:text="#{tipo.cantidad}">Cantidad</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="t : ${tipos}">
+                                    <td th:text="${t.id}">1</td>
+                                    <td th:text="${t.nombre}">Nombre</td>
+                                    <td th:text="${t.descripcion}">Descripción</td>
+                                    <td><span class="badge badge-vet fs-6" th:text="${t.servicios.size()}">0</span></td>
+                                    <td class="text-end text-nowrap">
+                                        <a th:href="@{/tipos/editar/{id}(id=${t.id})}" class="btn btn-sm btn-acento"
+                                           th:text="#{accion.editar}">Editar</a>
+                                        <button type="button" class="btn btn-sm btn-danger"
+                                                data-bs-toggle="modal" data-bs-target="#modalBorrar"
+                                                th:data-id="${t.id}" th:data-nombre="${t.nombre}"
+                                                th:text="#{accion.eliminar}">Eliminar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="text-center p-2" th:if="${tipos == null or tipos.isEmpty()}">
+                        <span th:text="#{lista.vacia}">No hay registros</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span th:text="#{tipo.total}">Total</span>: <strong th:text="${totalTipos}">0</strong>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fragmento 3: ventana modal para confirmar la eliminación -->
+        <section th:fragment="confirmarBorrado">
+            <div class="modal fade" id="modalBorrar" tabindex="-1" aria-labelledby="tituloBorrar" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <form th:action="@{/tipos/borrar}" method="post">
+                            <input type="hidden" name="id" id="borrarId"/>
+                            <div class="modal-header bg-danger text-white">
+                                <h5 class="modal-title" id="tituloBorrar">
+                                    <span th:text="#{confirmar.titulo}">Confirmar</span></h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                        th:aria-label="#{accion.cerrar}"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p><span th:text="#{confirmar.texto}">¿Desea eliminar</span> <strong id="borrarNombre"></strong>?</p>
+                                <p class="text-muted mb-0" th:text="#{confirmar.aviso}">No se puede deshacer</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                    <span th:text="#{accion.cancelar}">Cancelar</span></button>
+                                <button type="submit" class="btn btn-danger">
+                                    <span th:text="#{accion.eliminar}">Eliminar</span></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fragmento 4: formulario de edición (se usa en editar.html) -->
+        <section th:fragment="formularioEditar">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <form th:action="@{/tipos/registrar}" th:object="${tipoServicio}" method="post">
+                        <input type="hidden" th:field="*{id}"/>
+                        <div class="row g-3 mb-3">
+                            <div class="col-6 d-grid">
+                                <a th:href="@{/tipos}" class="btn btn-secondary">
+                                    <span th:text="#{accion.regresar}">Regresar</span></a>
+                            </div>
+                            <div class="col-6 d-grid">
+                                <button type="submit" class="btn btn-vet">
+                                    <span th:text="#{accion.guardar}">Guardar</span></button>
+                            </div>
+                        </div>
+                        <div class="card card-vet">
+                            <div class="card-header"><h4 th:text="#{tipo.editar}">Editar</h4></div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label" th:text="#{tipo.nombre}">Nombre</label>
+                                    <input type="text" class="form-control" th:field="*{nombre}" maxlength="100" required="required"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="descripcion" class="form-label" th:text="#{tipo.descripcion}">Descripción</label>
+                                    <input type="text" class="form-control" th:field="*{descripcion}" maxlength="255"/>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </body>
+</html>

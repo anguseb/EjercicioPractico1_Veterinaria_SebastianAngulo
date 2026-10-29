@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{general/plantilla :: estructura(~{::title}, ~{::main})}">
+    <head>
+        <title th:text="#{header.titulo}">Clínica Veterinaria</title>
+    </head>
+    <body>
+        <main class="flex-grow-1 container py-4">
+            <div class="contenido-inicio">
+
+                <h2 th:text="#{inicio.bienvenida}">Bienvenido</h2>
+                <p class="fs-5" th:text="#{inicio.presentacion}">Presentación</p>
+
+                <!-- Campaña destacada del mes -->
+                <div class="caja-campana mb-4">
+                    <p class="text-uppercase fw-bold small mb-1" th:text="#{inicio.campana.etiqueta}">Campaña del mes</p>
+                    <h3 th:text="#{inicio.campana.titulo}">Jornada de Vacunación</h3>
+                    <p class="mb-0" th:text="#{inicio.campana.texto}">Texto de la campaña</p>
+                </div>
+
+                <!-- Información de la clínica -->
+                <h4 th:text="#{inicio.horario.titulo}">Horario</h4>
+                <ul class="list-unstyled mb-4">
+                    <li th:text="#{inicio.horario.semana}">Lunes a viernes</li>
+                    <li th:text="#{inicio.horario.sabado}">Sábados</li>
+                </ul>
+
+                <h4 th:text="#{inicio.ubicacion.titulo}">Ubicación</h4>
+                <p class="mb-4" th:text="#{inicio.ubicacion.texto}">Dirección</p>
+
+                <h4 th:text="#{inicio.especialidades.titulo}">Especialidades</h4>
+                <ul class="mb-4">
+                    <li th:text="#{inicio.especialidades.uno}">Uno</li>
+                    <li th:text="#{inicio.especialidades.dos}">Dos</li>
+                    <li th:text="#{inicio.especialidades.tres}">Tres</li>
+                    <li th:text="#{inicio.especialidades.cuatro}">Cuatro</li>
+                </ul>
+
+                <!-- Video con iframe -->
+                <h4 th:text="#{inicio.video.titulo}">Video</h4>
+                <div class="ratio ratio-16x9">
+                    <iframe src="https://www.youtube-nocookie.com/embed/hB7mRQPaJEw"
+                            th:title="#{inicio.video.titulo}"
+                            loading="lazy" allowfullscreen
+                            referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                </div>
+
+            </div>
+        </main>
+    </body>
+</html>

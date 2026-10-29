@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <body>
+
+        <!-- Fragmento 1: Header -->
+        <header th:fragment="encabezado" class="vet-encabezado py-3 text-center">
+            <div class="container">
+                <h1 class="h3 mb-0" th:text="#{header.titulo}">Clínica Veterinaria</h1>
+                <p class="mb-0" th:text="#{header.eslogan}">Eslogan</p>
+            </div>
+        </header>
+
+        <!-- Fragmento 2: Navbar -->
+        <nav th:fragment="menu" class="navbar navbar-expand-md navbar-dark vet-navbar py-0">
+            <div class="container">
+                <button class="navbar-toggler my-2" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#menuPrincipal" aria-controls="menuPrincipal"
+                        aria-expanded="false" aria-label="Menú">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="menuPrincipal">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/}" th:text="#{navbar.inicio}"
+                               th:classappend="${paginaActiva == 'inicio'} ? 'active'">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/tipos}" th:text="#{navbar.tipos}"
+                               th:classappend="${paginaActiva == 'tipos'} ? 'active'">Tipos de Servicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/servicios}" th:text="#{navbar.servicios}"
+                               th:classappend="${paginaActiva == 'servicios'} ? 'active'">Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/citas}" th:text="#{navbar.citas}"
+                               th:classappend="${paginaActiva == 'citas'} ? 'active'">Citas</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/consultas}" th:text="#{navbar.consultas}"
+                               th:classappend="${paginaActiva == 'consultas'} ? 'active'">Consultas</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Fragmento 3: Footer -->
+        <footer th:fragment="pie" class="vet-pie mt-auto py-3 text-center">
+            <div class="container">
+                <p class="mb-1" th:text="#{footer.derechos}">Derechos reservados</p>
+                <small th:text="#{footer.contacto}">Contacto</small>
+            </div>
+        </footer>
+
+        <!-- Fragmento 4: Toast con el mensaje de resultado (RedirectAttributes) -->
+        <section th:fragment="avisoResultado">
+            <div class="toast-container position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1080;">
+                <div th:if="${mensajeExito != null}" class="toast border-0" role="status"
+                     aria-live="polite" aria-atomic="true">
+                    <div class="toast-header vet-toast-exito">
+                        <strong class="me-auto" th:text="#{aviso.exito}">Listo</strong>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"
+                                th:aria-label="#{accion.cerrar}"></button>
+                    </div>
+                    <div class="toast-body" th:text="${mensajeExito}">Mensaje</div>
+                </div>
+                <div th:if="${mensajeError != null}" class="toast border-0" role="alert"
+                     aria-live="assertive" aria-atomic="true">
+                    <div class="toast-header bg-danger text-white">
+                        <strong class="me-auto" th:text="#{aviso.error}">Atención</strong>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"
+                                th:aria-label="#{accion.cerrar}"></button>
+                    </div>
+                    <div class="toast-body" th:text="${mensajeError}">Mensaje</div>
+                </div>
+            </div>
+        </section>
+
+    </body>
+</html>
